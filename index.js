@@ -7,16 +7,20 @@
 var geoip = require('geoip-lite');
 
 module.exports = function geolocate(options) {
+  var options = options || {};
   var routes = 'all';
-  if (options && options['whitelist']) {
-    routes = options['whitelist'];
+
+  if (options.whitelist) {
+    routes = options.whitelist;
   }
 
   return function *geolocate(next) {
     if (!routeIsWhitelisted(routes, this.url)) {
       return yield next;
     }
-    
+
+    this.request.geolocation = null;
+
     var ip = this.request.ip;
     var geo = geoip.lookup(ip);
 

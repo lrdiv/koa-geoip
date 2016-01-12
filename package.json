@@ -1,7 +1,7 @@
 {
-  "name": "koa-geolocate-middleware",
+  "name": "koa-geoip",
   "version": "1.0.0",
-  "description": "Geolocation middleware for koajs",
+  "description": "IP based geolocation middleware for koajs",
   "main": "index.js",
   "scripts": {
     "test": "mocha --harmony test.js"

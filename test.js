@@ -6,13 +6,13 @@ var geolocate  = require('./');
 var app, server, msg;
 
 describe('geolocate()', function() {
-  it('should set req query param of geoipCityState', function(done) {
+  it('should set geolocation object on request', function(done) {
     var app = setupServer()
     request(app.listen())
       .get('/')
       .set('X-Forwarded-For', '67.176.232.51')
       .end(function(err, res) {
-        chai.expect(res.text).to.equal('Mount Prospect, IL, US');
+        chai.expect(res.text).to.equal('Mount Prospect');
         done();
       });
   });
@@ -25,7 +25,7 @@ describe('geolocate()', function() {
       .get('/bar')
       .set('X-Forwarded-For', '67.176.232.51')
       .end(function(err, res) {
-        chai.expect(res.text).to.equal('Mount Prospect, IL, US');
+        chai.expect(res.text).to.equal('Mount Prospect');
         done();
       });
   });
@@ -38,7 +38,8 @@ describe('geolocate()', function() {
       .get('/baz')
       .set('X-Forwarded-For', '67.176.232.51')
       .end(function(err, res) {
-        chai.expect(res.text).to.not.equal('Mount Prospect, IL, US');
+        chai.expect(res.text).to.not.equal('Mount Prospect');
+        chai.expect(res.text).to.equal('Hello World');
         done();
       })
   });
@@ -49,7 +50,10 @@ var setupServer = function(options) {
   app.proxy = true;
   app.use(geolocate(options));
   app.use(function *(next) {
-    this.body = this.request.query.geoipCityState;
+    this.body = 'Hello World';
+    if (this.request.geolocation) {
+      this.body = this.request.geolocation.city;
+    }
   });
   return app;
 }

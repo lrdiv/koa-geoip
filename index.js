@@ -21,9 +21,7 @@ module.exports = function geolocate(options) {
     var geo = geoip.lookup(ip);
 
     if (geo != null) {
-      var cityState = stringifyLocation(geo);
-      this.request.query.geoipCityState = cityState;
-      this.request.query.geoipLatLng = geo['ll'];
+      this.request.geolocation = geo;
     }
 
     return yield next;
@@ -35,8 +33,4 @@ var routeIsWhitelisted = function(routes, url) {
     return true
   }
   return routes.indexOf(url) > -1;
-}
-
-var stringifyLocation = function(geo) {
-  return [geo.city, geo.region, geo.country].join(', ');
 }

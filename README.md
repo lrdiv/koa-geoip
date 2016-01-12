@@ -3,7 +3,7 @@ koa-geoip
 
 IP-based geolocation middleware for Koa
 
-## Installation (via [npm](https://npmjs.org/package/koa-cors))
+## Installation (via [npm](https://npmjs.org/package/koa-geoip))
 
 ```bash
 $ npm install koa-geoip

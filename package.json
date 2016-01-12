@@ -7,7 +7,7 @@
     "test": "mocha --harmony test.js"
   },
   "author": "Lawrence R Davis IV",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^3.4.1",
     "koa": "^1.1.2",

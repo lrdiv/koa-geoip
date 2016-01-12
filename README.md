@@ -20,10 +20,16 @@ var app = koa();
 app.use(geolocate());
 
 app.use(route.get('/', function() {
-  this.body = {
-    lat_lng: this.request.query.geoipLatLng,
-    city_state: this.request.query.geoipCityState
-  };
+  if (this.request.geolocation) {
+    this.body = {
+      city: this.request.geolocation.city,
+      state: this.request.geolocation.region,
+      country: this.request.geolocation.country,
+      latlng: this.request.geolocation.ll
+    }
+  } else {
+    this.body = {error: "Could not geolocate."};
+  }
 }));
 
 app.listen(3000);
@@ -42,6 +48,10 @@ app.use(geolocate({
   whitelist: ['/foo', '/bar', '/baz']
 }));
 ```
+
+## Dependencies
+
+[node-geoip](https://github.com/bluesmoon/node-geoip)
 
 ## License
 

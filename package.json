@@ -1,10 +1,14 @@
 {
   "name": "koa-geoip",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "IP-based geolocation middleware for koajs",
   "main": "index.js",
   "scripts": {
     "test": "mocha --harmony test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lrdiv/koa-geoip.git"
   },
   "author": "Lawrence R Davis IV",
   "license": "MIT",
